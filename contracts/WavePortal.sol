@@ -27,6 +27,13 @@ contract WavePortal {
          seed = (block.timestamp + block.difficulty) % 100;
     }
     function wave(string memory _message) public {
+
+        require(
+            lastWaveAt[msg.sender] +30 seconds < block.timestamp,
+            "wait 15m"
+        );
+
+        lastWaveAt[msg.sender] = block.timestamp;
         totalWaves += 1;
         console.log(" has waved %s times", msg.sender);
 
@@ -44,13 +51,13 @@ contract WavePortal {
             *The same code we had before we send a prize 0.01 ether to the winner
             */
             uint256 prizeAmount = 0.0001 ether;
-        require(
-            prizeAmount <= address(this).balance,
-            "Trying to withdraw more money than the contract has."
-        );
-        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
-        require(success, "Failed to withdraw money from contract.");
-        }
+                require(
+                    prizeAmount <= address(this).balance,
+                    "Trying to withdraw more money than the contract has."
+                );
+                (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+                require(success, "Failed to withdraw money from contract.");
+            }
         emit NewWave(msg.sender, block.timestamp, _message);
   
     }
