@@ -23,10 +23,13 @@ const main = async () => {
      */
     let waveTxn = await waveContract.wave('Hello!');
     await waveTxn.wait(); // Wait for the transaction to be mined
+
+    let waveTxn2 = await waveContract.wave('Hello!');
+    await waveTxn2.wait(); // Wait for the transaction to be mined
   
-    const [_, randomPerson] = await hre.ethers.getSigners();
+   /* const [_, randomPerson] = await hre.ethers.getSigners();
     waveTxn = await waveContract.connect(randomPerson).wave('Hello there we diving into web !');
-    await waveTxn.wait(); // Wait for the transaction to be mined
+    await waveTxn.wait(); // Wait for the transaction to be mined*/
 
     /*
     **Get the contract address from the deployed contract to see what happened after sending waves
